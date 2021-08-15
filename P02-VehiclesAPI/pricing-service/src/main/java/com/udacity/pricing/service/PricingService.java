@@ -37,6 +37,10 @@ public class PricingService {
         return PRICES.get(vehicleId);
     }
 
+    public static Map<Long, Price> getPrices() {
+        return PRICES;
+    }
+
     /**
      * Gets a random price to fill in for a given vehicle ID.
      * @return random price for a vehicle

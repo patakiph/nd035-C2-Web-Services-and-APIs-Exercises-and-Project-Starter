@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Implements a REST-based controller for the pricing service.
  */
@@ -30,6 +33,13 @@ public class PricingController {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Price Not Found", ex);
         }
+
+    }
+
+    @GetMapping
+    @RequestMapping("/all")
+    public Map<Long, Price> getAll() {
+            return PricingService.getPrices();
 
     }
 }

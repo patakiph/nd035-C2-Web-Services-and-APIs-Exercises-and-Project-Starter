@@ -20,6 +20,12 @@ import java.util.Map;
 @RequestMapping("/services/price")
 public class PricingController {
 
+    private final PricingService service;
+
+    public PricingController(PricingService service) {
+        this.service = service;
+    }
+
     /**
      * Gets the price for a requested vehicle.
      * @param vehicleId ID number of the vehicle for which the price is requested
@@ -28,7 +34,7 @@ public class PricingController {
     @GetMapping
     public Price get(@RequestParam Long vehicleId) {
         try {
-            return PricingService.getPrice(vehicleId);
+            return service.getPrice(vehicleId);
         } catch (PriceException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Price Not Found", ex);
@@ -39,7 +45,7 @@ public class PricingController {
     @GetMapping
     @RequestMapping("/all")
     public Map<Long, Price> getAll() {
-            return PricingService.getPrices();
+            return service.getPrices();
 
     }
 }

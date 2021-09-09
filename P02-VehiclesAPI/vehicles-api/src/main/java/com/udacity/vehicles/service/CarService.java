@@ -95,12 +95,12 @@ public class CarService {
      */
     public Car save(Car car) {
         if (car.getId() != null) {
-            return repository.findById(car.getId())
-                    .map(carToBeUpdated -> {
-                        carToBeUpdated.setDetails(car.getDetails());
-                        carToBeUpdated.setLocation(car.getLocation());
-                        return repository.save(carToBeUpdated);
-                    }).orElseThrow(CarNotFoundException::new);
+            Optional<Car> optCar = repository.findById(car.getId());
+            if (optCar.isEmpty()) {
+                throw new CarNotFoundException();
+            } else {
+                return repository.save(car);
+            }
         }
 
         return repository.save(car);
